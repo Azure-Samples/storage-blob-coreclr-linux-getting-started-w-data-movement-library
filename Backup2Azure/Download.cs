@@ -35,36 +35,37 @@ namespace Backup2Azure
         {
             try
             {
-                //Connect to Azure Storage to download a container
+                // Connect to Azure Storage to download a container
                 CloudStorageAccount account = CloudStorageAccount.Parse(storageConnectionString);
                 CloudBlobClient blobClient = account.CreateCloudBlobClient();
 
-                //Get the container and root directory reference
+                // Get the container and root directory reference
                 CloudBlobContainer blobContainer = blobClient.GetContainerReference(containerName);
                 CloudBlobDirectory rootDir = blobContainer.GetDirectoryReference("");
 
-                //Log
+                // Log
                 Console.WriteLine("Directory to be downloaded is {0} and {1}", rootDir.Container.Name, rootDir.StorageUri);
 
-                //Setup the transfer context and track the upoload progress
+                // Setup the transfer context and track the upoload progress
                 TransferContext context = new TransferContext();
-
+                context.FileFailed += Program.FileFailedCallback;
+				
                 context.ProgressHandler = new Progress<TransferStatus>((progress) =>
                 {
                     Console.WriteLine("{0} MB downloaded", progress.BytesTransferred / (1024 * 1024));
                 });
 
-                //Download recursively
+                // Download recursively
                 DownloadDirectoryOptions options = new DownloadDirectoryOptions()
                 {
                     Recursive = true
                 };
 
-                //Start the counter
+                // Start the counter
                 Stopwatch s = Stopwatch.StartNew();
 
-                //Initiate the download from DMLib
-                var transferStatus = await TransferManager.DownloadDirectoryAsync(rootDir, localDir.ToString(), options, context);
+                // Initiate the download from DMLib
+                TransferStatus transferStatus = await TransferManager.DownloadDirectoryAsync(rootDir, localDir.ToString(), options, context);
 
                 s.Stop();
 
@@ -73,7 +74,7 @@ namespace Backup2Azure
                     Console.WriteLine("{0} files failed to transfer", transferStatus.NumberOfFilesFailed);
                 }
 
-                //Log the result
+                // Log the result
                 Console.WriteLine("Download has been completed in {0} seconds", s.Elapsed.TotalSeconds);
 
             }
@@ -82,6 +83,6 @@ namespace Backup2Azure
                 Console.WriteLine(ex.Message);
             }
 
-        }
+        }	
     }
 }

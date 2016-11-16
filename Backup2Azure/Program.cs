@@ -33,6 +33,9 @@ namespace Backup2Azure
     ///
     ///
     /// Documentation References:
+	/// Introduction to Microsoft Azure Storage - https://azure.microsoft.com/en-us/documentation/articles/storage-introduction/
+	/// File Storage Concepts - https://msdn.microsoft.com/library/dn166972.aspx
+	/// Get Started with Files for C++ - https://azure.microsoft.com/en-us/documentation/articles/storage-c-plus-plus-how-to-use-files/
     /// </summary>
 
     public class Program
@@ -40,8 +43,8 @@ namespace Backup2Azure
 
         // *************************************************************************************************************************
         // Instructions: This sample can only be run using an Azure Storage Account. When the sample is run, the user will be
-        // prompted to enter an Azure Storage account name and a service/account SAS key that has write access to the blob service.
-        //
+        // prompted to enter an Azure Storage account name and a blob service or an account SAS key that has read/write access to 
+		// the blob service.
         //
         // To run the sample you need to supplement two arguments in the Linux commandline
         //      1. First argument is the option to backup or restore data. Simply provide 'backup' or 'restore' keyword
@@ -56,6 +59,9 @@ namespace Backup2Azure
 
         public static int Main(string[] args)
         {
+			
+			TransferManager.Configurations.ParallelOperations = 64;
+
             if (args.Length < 2)
             {
                 System.Console.WriteLine("Please enter the following parameters.");
@@ -71,7 +77,6 @@ namespace Backup2Azure
             string sasKey = Console.ReadLine();
 
             string connectionString = "BlobEndpoint=http://" + accountName + ".blob.core.windows.net;SharedAccessSignature=" + sasKey;
-
 
             DirectoryInfo localDir = new DirectoryInfo(args[1]);
 
@@ -94,7 +99,7 @@ namespace Backup2Azure
             else if (args[0] == "backup")
             {
 
-                Copy upload2Azure = new Copy();
+                Upload upload2Azure = new Upload();
                 var copytask = upload2Azure.doCopy(localDir, connectionString);
                 copytask.Wait();
 
@@ -104,6 +109,13 @@ namespace Backup2Azure
             return 0;
 
         }
+		
+		// Callback when the file transferfails
+        public static void FileFailedCallback(object sender, TransferEventArgs e)
+        {
+            Console.WriteLine("Transfer fails. {0} -> {1}. Error message:{2}", e.Source, e.Destination, e.Exception.Message);
+        }
+
     }
 }
 

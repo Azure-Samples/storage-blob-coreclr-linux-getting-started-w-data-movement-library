@@ -32,25 +32,21 @@ namespace Backup2Azure
 {
     public class Storage
     {
-        public Storage()
-        { }
 
         public async Task ListContainers(string storageConnectionString)
         {
-            CloudStorageAccount storage_account = CloudStorageAccount.Parse(storageConnectionString);
-            CloudBlobClient blob_client = storage_account.CreateCloudBlobClient();
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageConnectionString);
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
             List<string> listedContainerNames = new List<string>();
             BlobContinuationToken token = null;
             do
             {
-                ContainerResultSegment resultSegment = await blob_client.ListContainersSegmentedAsync(token);
+                ContainerResultSegment resultSegment = await blobClient.ListContainersSegmentedAsync(token);
                 token = resultSegment.ContinuationToken;
 
-                int count = 0;
                 foreach (CloudBlobContainer container in resultSegment.Results)
                 {
-                    count++;
                     listedContainerNames.Add(container.Name);
 					Console.WriteLine(" > " + container.Name);
                 }

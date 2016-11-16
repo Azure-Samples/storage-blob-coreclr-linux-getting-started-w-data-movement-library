@@ -29,7 +29,7 @@ using System.Diagnostics;
 
 namespace Backup2Azure
 {
-    public class Copy
+    public class Upload
     {
         public async Task doCopy(DirectoryInfo source, string storageConnectionString)
         {
@@ -39,35 +39,36 @@ namespace Backup2Azure
                 CloudStorageAccount account = CloudStorageAccount.Parse(storageConnectionString);
                 CloudBlobClient blobClient = account.CreateCloudBlobClient();
 
-                //Unique container name with timestamp
+                // Unique container name with timestamp
                 string container = source.Name + DateTime.Now.ToString("MMddyyyy-HHmmss");
                 CloudBlobContainer blobContainer = blobClient.GetContainerReference(container);
 
-                blobContainer.CreateIfNotExistsAsync().Wait();
+                await blobContainer.CreateIfNotExistsAsync();
                 Console.WriteLine("Container {0} has been created.", container);
 
-                //Get root directory reference for the container
+                // Get root directory reference for the container
                 CloudBlobDirectory destBlob = blobContainer.GetDirectoryReference("");
 
-                // Setup the transfer context and track the upoload progress
+                // Setup the transfer context and track the upload progress
                 TransferContext context = new TransferContext();
+                context.FileFailed += Program.FileFailedCallback;
 
                 context.ProgressHandler = new Progress<TransferStatus>((progress) =>
                 {
                     Console.WriteLine("{0} MB uploaded", progress.BytesTransferred / (1024 * 1024));
                 });
 
-                //Upload recursively
+                // Upload recursively
                 UploadDirectoryOptions options = new UploadDirectoryOptions()
                 {
                     Recursive = true
                 };
 
-                //Start the counter
+                // Start the counter
                 Stopwatch s = Stopwatch.StartNew();
 
-                //Initiate the Upload from DMLib
-                var transferStatus = await TransferManager.UploadDirectoryAsync(source.FullName, destBlob, options, context);
+                // Initiate the Upload from DMLib
+                TransferStatus transferStatus = await TransferManager.UploadDirectoryAsync(source.FullName, destBlob, options, context);
 
                 s.Stop();
 
@@ -76,7 +77,7 @@ namespace Backup2Azure
                     Console.WriteLine("{0} files failed to transfer", transferStatus.NumberOfFilesFailed);
                 }
                 
-                //Log the result
+                // Log the result
                 Console.WriteLine("Upload has been completed in {0} seconds.", s.Elapsed.TotalSeconds);
             }
             catch (StorageException ex)
@@ -85,6 +86,7 @@ namespace Backup2Azure
             }
 
         }
+
     }
 }
 
