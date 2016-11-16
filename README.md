@@ -1,4 +1,4 @@
-* ---
+ ---
 services: storage
 platforms: dotnetcore
 author: seguler
@@ -25,7 +25,15 @@ You need to install the .NET Core in your linux environment. Please visit https:
 2. Local directory to be backed up or restored to. 
 
 ### Sample usage:
+* Clone and create a dotnet project.
 ```azurecli
+	git clone https://github.com/Azure-Samples/storage-blob-coreclr-linux-getting-started-w-data-movement-library/
+	cd Backup2Azure
+	dotnet new
+```
+* Build and run the sample
+```azurecli
+	dotnet build
 	dotnet run  <first argument: backup/restore> <second argument: /home/sampledirectory>
 	dotnet run backup /home/sampledirectory
 	dotnet run restore /home/sampledirectory
