@@ -49,6 +49,9 @@ namespace Backup2Azure
                 // Get root directory reference for the container
                 CloudBlobDirectory destBlob = blobContainer.GetDirectoryReference("");
 
+				// Parallel Operations
+				TransferManager.Configurations.ParallelOperations = 32;
+				
                 // Setup the transfer context and track the upload progress
                 TransferContext context = new TransferContext();
                 context.FileFailed += Program.FileFailedCallback;

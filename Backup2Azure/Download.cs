@@ -46,6 +46,9 @@ namespace Backup2Azure
                 // Log
                 Console.WriteLine("Directory to be downloaded is {0} and {1}", rootDir.Container.Name, rootDir.StorageUri);
 
+				// Parallel Operations
+				TransferManager.Configurations.ParallelOperations = 32;
+				
                 // Setup the transfer context and track the upoload progress
                 TransferContext context = new TransferContext();
                 context.FileFailed += Program.FileFailedCallback;
