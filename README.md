@@ -1,4 +1,4 @@
----
+* ---
 services: storage
 platforms: dotnetcore
 author: seguler
@@ -17,17 +17,19 @@ get a FREE trial account [here](http://go.microsoft.com/fwlink/?LinkId=330212)
 This sample can only be run using an Azure Storage Account. When the sample is run, the user will be
 be prompted to enter an Azure Storage account name and a service/account SAS key that has read and write access to the blob service.
 
-Pre-requisite
+### Pre-requisite
 You need to install the .NET Core in your linux environment. Please visit https://www.microsoft.com/net/core for installation instructions.
 
-To run the sample you need to supplement two arguments in the Linux commandline
+### To run the sample you need to supplement two arguments in the Linux commandline
 1. First argument is the option to backup or restore data. Simply provide 'backup' or 'restore' keyword
-2. Local directory to be backed up or restored to. Full path is needed
+2. Local directory to be backed up or restored to. 
 
-Sample usage:
+### Sample usage:
+```azurecli
 	dotnet run  <first argument: backup/restore> <second argument: /home/sampledirectory>
 	dotnet run backup /home/sampledirectory
 	dotnet run restore /home/sampledirectory
+```
 
 ## More information
 - [What is a Storage Account](http://azure.microsoft.com/en-us/documentation/articles/storage-whatis-account/)
