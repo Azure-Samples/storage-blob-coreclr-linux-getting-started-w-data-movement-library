@@ -1,6 +1,6 @@
- ---
-services: storage
-platforms: dotnetcore
+---
+services: storage 
+platforms: dotnetcore, linux
 author: seguler
 ---
 
