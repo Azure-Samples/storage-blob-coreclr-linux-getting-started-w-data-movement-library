@@ -4,7 +4,7 @@ platforms: dotnetcore, linux
 author: seguler
 ---
 
-# Azure Storage Data Movement Library on CoreCLR
+# Azure Storage Data Movement Library on CoreCLR for Linux
 
 Azure Storage Data Movement Library on CoreCLR targetting Linux platforms - Demonstrates how to copy
 and download large directory of files to/from Azure Storage Blob service.
