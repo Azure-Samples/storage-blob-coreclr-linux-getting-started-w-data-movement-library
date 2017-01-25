@@ -33,6 +33,7 @@ You need to install the .NET Core in your linux environment. Please visit https:
 ```
 * Build and run the sample
 ```azurecli
+	dotnet restore
 	dotnet build
 	dotnet run  <first argument: backup/restore> <second argument: /home/sampledirectory>
 	dotnet run backup /home/sampledirectory
