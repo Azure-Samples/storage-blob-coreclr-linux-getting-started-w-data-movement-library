@@ -18,7 +18,7 @@ This sample can only be run using an Azure Storage Account. When the sample is r
 be prompted to enter an Azure Storage account name and a service/account SAS key that has read and write access to the blob service.
 
 ### Pre-requisite
-You need to install the .NET Core in your linux environment. Please visit https://www.microsoft.com/net/core for installation instructions.
+You need to install the .NET Core 1.1 in your linux environment. Please visit https://www.microsoft.com/net/core for installation instructions. If you have a different version than .NET Core 1.1, be sure to update project.json file for the .NET Core dependency version.
 
 ### To run the sample you need to supplement two arguments in the Linux commandline
 1. First argument is the option to backup or restore data. Simply provide 'backup' or 'restore' keyword
