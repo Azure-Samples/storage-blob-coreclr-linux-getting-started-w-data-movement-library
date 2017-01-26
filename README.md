@@ -29,7 +29,6 @@ You need to install the .NET Core 1.1 in your linux environment. Please visit ht
 ```azurecli
 	git clone https://github.com/Azure-Samples/storage-blob-coreclr-linux-getting-started-w-data-movement-library/
 	cd Backup2Azure
-	dotnet new
 ```
 * Build and run the sample
 ```azurecli
