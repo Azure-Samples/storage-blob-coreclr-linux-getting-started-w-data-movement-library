@@ -1,4 +1,4 @@
-﻿//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
 // Microsoft Developer & Platform Evangelism
 //
 // Copyright (c) Microsoft Corporation. All rights reserved.
@@ -44,7 +44,7 @@ namespace Backup2Azure
         // *************************************************************************************************************************
         // Instructions: This sample can only be run using an Azure Storage Account. When the sample is run, the user will be
         // prompted to enter an Azure Storage account name and a blob service or an account SAS key that has read/write access to 
-		// the blob service.
+        // the blob service.
         //
         // To run the sample you need to supplement two arguments in the Linux commandline
         //      1. First argument is the option to backup or restore data. Simply provide 'backup' or 'restore' keyword
@@ -59,7 +59,7 @@ namespace Backup2Azure
 
         public static int Main(string[] args)
         {
-			
+
             if (args.Length < 2)
             {
                 System.Console.WriteLine("Please enter the following parameters.");
@@ -107,8 +107,8 @@ namespace Backup2Azure
             return 0;
 
         }
-		
-		// Callback when the file transferfails
+
+        // Callback when the file transferfails
         public static void FileFailedCallback(object sender, TransferEventArgs e)
         {
             Console.WriteLine("Transfer fails. {0} -> {1}. Error message:{2}", e.Source, e.Destination, e.Exception.Message);

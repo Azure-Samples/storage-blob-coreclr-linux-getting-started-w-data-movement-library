@@ -1,4 +1,4 @@
-﻿//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
 // Microsoft Developer & Platform Evangelism
 //
 // Copyright (c) Microsoft Corporation. All rights reserved.
@@ -29,37 +29,40 @@ using System.Diagnostics;
 
 namespace Backup2Azure
 {
-    public class Download
+    public class Upload
     {
-        public async Task doDownload(string containerName, DirectoryInfo localDir, string storageConnectionString)
+        public async Task doCopy(DirectoryInfo source, string storageConnectionString)
         {
             try
             {
-                // Connect to Azure Storage to download a container
+                // Connect to Azure Storage to create a container for this backup
                 CloudStorageAccount account = CloudStorageAccount.Parse(storageConnectionString);
                 CloudBlobClient blobClient = account.CreateCloudBlobClient();
 
-                // Get the container and root directory reference
-                CloudBlobContainer blobContainer = blobClient.GetContainerReference(containerName);
-                CloudBlobDirectory rootDir = blobContainer.GetDirectoryReference("");
+                // Unique container name with timestamp
+                string container = source.Name.ToLower() + DateTime.Now.ToString("MMddyyyy-HHmmss");
+                CloudBlobContainer blobContainer = blobClient.GetContainerReference(container);
 
-                // Log
-                Console.WriteLine("Directory to be downloaded is {0} and {1}", rootDir.Container.Name, rootDir.StorageUri);
+                await blobContainer.CreateIfNotExistsAsync();
+                Console.WriteLine("Container {0} has been created.", container);
+
+                // Get root directory reference for the container
+                CloudBlobDirectory destBlob = blobContainer.GetDirectoryReference("");
 
 				// Parallel Operations
 				TransferManager.Configurations.ParallelOperations = 32;
 				
-                // Setup the transfer context and track the upoload progress
-                TransferContext context = new TransferContext();
+                // Setup the transfer context and track the upload progress
+                DirectoryTransferContext context = new DirectoryTransferContext();
                 context.FileFailed += Program.FileFailedCallback;
-				
+
                 context.ProgressHandler = new Progress<TransferStatus>((progress) =>
                 {
-                    Console.WriteLine("{0} MB downloaded", progress.BytesTransferred / (1024 * 1024));
+                    Console.WriteLine("{0} MB uploaded", progress.BytesTransferred / (1024 * 1024));
                 });
 
-                // Download recursively
-                DownloadDirectoryOptions options = new DownloadDirectoryOptions()
+                // Upload recursively
+                UploadDirectoryOptions options = new UploadDirectoryOptions()
                 {
                     Recursive = true
                 };
@@ -67,25 +70,26 @@ namespace Backup2Azure
                 // Start the counter
                 Stopwatch s = Stopwatch.StartNew();
 
-                // Initiate the download from DMLib
-                TransferStatus transferStatus = await TransferManager.DownloadDirectoryAsync(rootDir, localDir.ToString(), options, context);
+                // Initiate the Upload from DMLib
+                TransferStatus transferStatus = await TransferManager.UploadDirectoryAsync(source.FullName, destBlob, options, context);
 
                 s.Stop();
 
-                if (transferStatus.NumberOfFilesFailed > 0)
+                if(transferStatus.NumberOfFilesFailed > 0)
                 {
                     Console.WriteLine("{0} files failed to transfer", transferStatus.NumberOfFilesFailed);
                 }
-
+                
                 // Log the result
-                Console.WriteLine("Download has been completed in {0} seconds", s.Elapsed.TotalSeconds);
-
+                Console.WriteLine("Upload has been completed in {0} seconds.", s.Elapsed.TotalSeconds);
             }
             catch (StorageException ex)
             {
                 Console.WriteLine(ex.Message);
             }
 
-        }	
+        }
+
     }
 }
+
