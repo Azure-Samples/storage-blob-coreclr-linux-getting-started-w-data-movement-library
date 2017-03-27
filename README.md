@@ -25,7 +25,7 @@ You need to install the .NET Core 1.1 in your linux environment. Please visit ht
 2. Local directory to be backed up or restored to. 
 
 ### Sample usage:
-* Clone and create a dotnet project.
+* Clone this repository.
 ```azurecli
 	git clone https://github.com/Azure-Samples/storage-blob-coreclr-linux-getting-started-w-data-movement-library/
 ```
