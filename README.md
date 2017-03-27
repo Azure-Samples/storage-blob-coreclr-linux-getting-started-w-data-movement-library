@@ -41,7 +41,7 @@ You need to install the .NET Core 1.1 in your linux environment. Please visit ht
 ## More information
 - [What is a Storage Account](http://azure.microsoft.com/en-us/documentation/articles/storage-whatis-account/)
 - [Introduction to Storage](https://azure.microsoft.com/en-us/documentation/articles/storage-introduction/)
-- [Blob Storage Concepts] (https://msdn.microsoft.com/library/dd179376.aspx)
+- [Blob Storage Concepts](https://msdn.microsoft.com/library/dd179376.aspx)
 - [Get Started with Blobs in .NET](https://azure.microsoft.com/en-us/documentation/articles/storage-dotnet-how-to-use-blobs/)
 - [Azure Data Movement Library](https://www.nuget.org/packages/Microsoft.Azure.Storage.DataMovement)
-- [Azure Data Movement Library Samples on Github] (https://github.com/Azure/azure-storage-net-data-movement/tree/dev/samples)
+- [Azure Data Movement Library Samples on Github](https://github.com/Azure/azure-storage-net-data-movement/tree/dev/samples)
