@@ -1,0 +1,8 @@
+{
+  "itemDisplayName": "Deploy the sample onto a simple Linux VM (Ubuntu)",
+  "icon": "ubuntu",
+  "description": "This template allows you to deploy the sample onto a simple Linux VM. This will also create a dummy data under '/mnt/testdata' to use with the sample application. ",
+  "summary": "This template takes a minimum amount of parameters and deploys a Linux VM, using the latest patched version.",
+  "githubUsername": "seguler",
+  "dateUpdated": "2017-04-24"
+}
