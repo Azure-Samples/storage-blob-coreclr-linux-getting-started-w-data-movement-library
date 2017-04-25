@@ -18,11 +18,9 @@ get a FREE trial account [here](http://go.microsoft.com/fwlink/?LinkId=330212)
 
 ## Running this sample with one-click deploy
 
-1. Simply click on the azure-deploy link above, which will create a new VM and a storage account in your azure subscription using an Azure Resource Manager template.
-Once clicked, you will be prompted to select VM size, user name and password. You can also edit the template before purchasing the resources.
+1. Click on the 'Deploy to Azure' link above, which will create a new VM and a storage account in your azure subscription using an Azure Resource Manager template.
 2. Once deployment is completed, login to the Linux VM using SSH.
-3. The sample application will be located under /home/<your-user>/storage-blob-coreclr-linux-getting-started-w-data-movement-library/
-Sample data will be located under /mnt/testdata
+3. The sample application will be located under /home/< your-user>/storage-blob-coreclr-linux-getting-started-w-data-movement-library/. Sample data will be located under /mnt/testdata
 4. To run the sample app, issue the following commands:
 ```azurecli
 cd /home/<your-user>/storage-blob-coreclr-linux-getting-started-w-data-movement-library/

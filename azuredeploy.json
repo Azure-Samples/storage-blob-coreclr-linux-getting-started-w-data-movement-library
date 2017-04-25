@@ -199,7 +199,7 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "https://raw.githubusercontent.com/seguler/azuredeploytest/master/setup_env.sh"
+            "https://raw.githubusercontent.com/seguler/storage-blob-coreclr-linux-getting-started-w-data-movement-library/master/setup_env.sh"
           ],
 			"commandToExecute": "[concat('sh setup_env.sh ', parameters('adminUsername'), ' ', variables('storageAccountName'), ' ', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value)]"
         }
