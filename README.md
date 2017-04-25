@@ -25,7 +25,7 @@ get a FREE trial account [here](http://go.microsoft.com/fwlink/?LinkId=330212)
 ```azurecli
 cd /home/<your-user>/storage-blob-coreclr-linux-getting-started-w-data-movement-library/
 dotnet run backup /mnt/testdata
-dotnet run restore /home/restoreddata
+dotnet run restore /mnt/restoreddata
 ```
 
 ## Running this sample manually

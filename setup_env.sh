@@ -25,7 +25,9 @@ sudo -u $1 dotnet build
 
 echo "###Creating 10 files each 100MB from dev/urandom"
 mkdir -p /mnt/testdata
-cd /mnt
+mkdir -p /mnt/restoreddata
+chown $1 /mnt/restoreddata
+cd /mnt/testdata
 for i in $(seq 1 10)
 do
 	head -c 100MB </dev/urandom >mysamplefile.${i}
