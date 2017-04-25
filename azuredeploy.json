@@ -47,7 +47,7 @@
     }
   },
   "variables": {
-    "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'salinuxvm')]",
+    "storageAccountName": "['storagetest', concat(uniquestring(resourceGroup().id))]",
     "imagePublisher": "Canonical",
     "imageOffer": "UbuntuServer",
     "nicName": "myVMNic",
@@ -57,7 +57,7 @@
     "storageAccountType": "Standard_LRS",
     "publicIPAddressName": "myPublicIP",
     "publicIPAddressType": "Dynamic",
-    "vmName": "MyUbuntuVM",
+    "vmName": "StorageSampleVM-DMlib-CoreCLR",
     "virtualNetworkName": "MyVNET",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]"
