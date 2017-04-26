@@ -47,7 +47,7 @@
     }
   },
   "variables": {
-    "storageAccountName": "['storagetest', concat(uniquestring(resourceGroup().id))]",
+    "storageAccountName": "[concat('storagesample-', uniquestring(resourceGroup().id))]",
     "imagePublisher": "Canonical",
     "imageOffer": "UbuntuServer",
     "nicName": "myVMNic",
