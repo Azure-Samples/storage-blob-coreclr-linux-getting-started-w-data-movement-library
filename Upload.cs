@@ -87,6 +87,11 @@ namespace Backup2Azure
             {
                 Console.WriteLine(ex.Message);
             }
+            catch (Exception ex)
+            {
+                ex = (ex.InnerException != null) ? ex.InnerException.GetBaseException() : ex;
+                Console.WriteLine(ex.Message);
+            }
 
         }
 
